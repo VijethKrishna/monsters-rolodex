@@ -11,6 +11,11 @@ class App extends Component {
       monsters: [],
       searchField: "",
     };
+    // this.handleChange = this.handleChange.bind(this); // if class methods are not used as arrow funtions
+  }
+
+  handleChange = (e) => {
+    this.setState({searchField: e.target.value})
   }
 
   componentDidMount() {
@@ -20,11 +25,12 @@ class App extends Component {
   }
   render() {
     const { monsters, searchField} = this.state;
+    // Filter monsters based on the searchfield which then is passed on the the card list
     const filteredMonsters = monsters.filter( monster => monster.name.toLowerCase().includes(searchField));
-    console.log('Filtered monsters' + filteredMonsters);
     return (
       <div className="App">
-        <SearchBox placeholder="Search for monsters" handleChange={e => this.setState({searchField: e.target.value})} ></SearchBox>
+        <h1 className="page-title">Monster's rolodex</h1>
+        <SearchBox placeholder="Search for monsters" handleChange={this.handleChange} ></SearchBox>
         <CardList monsters={filteredMonsters}></CardList>
       </div>
     );
